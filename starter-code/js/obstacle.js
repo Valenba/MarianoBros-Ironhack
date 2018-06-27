@@ -4,12 +4,12 @@ function Obstacle(game, type, img) {
     this.img = img;
     if (type == "coin") {
         this.x = 1650;
-        this.y = 500;
+        this.y = 300;
         this.h = 40;
         this.w = 40;
         this.dx = 5;
-        this.vy = 1;
-        this.gravity = 0.5;
+        this.vy = 0;
+        this.gravity = 0.3;
         this.dy = 5;
     } else if (type == "obstacle") {
         this.x = 1500;
@@ -26,17 +26,16 @@ Obstacle.prototype.draw = function () {
 
 };
 Obstacle.prototype.move = function () {
+    this.x -= this.dx;
     if (this.type == "obstacle") {
-        this.x -= this.dx;
         if (this.x < -this.game.canvas.width) this.x = 0;
     }else if(this.type == "coin"){
-        this.x -= this.dx;
-        if (this.y >= 500) {
-            this.vy = 1;
-            this.y = 500;
-        } else {
-            this.vy += this.gravity;
+        if (this.y <= 422) {
+            this.vy += this.gravity; 
             this.y += this.vy;
+        } else {
+            this.y += this.vy;
+            this.vy -= this.gravity;
         }
     }
 };
