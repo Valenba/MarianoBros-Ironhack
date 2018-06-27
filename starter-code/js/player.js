@@ -7,7 +7,7 @@ function Player(game) {
     this.vy = 1;
     this.w = 50;
     this.h = 50;
-    //this.dx = 5;
+
 
 
 };

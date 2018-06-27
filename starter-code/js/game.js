@@ -3,6 +3,7 @@ function Game() {
     this.ctx = this.canvas.getContext("2d");
     this.fps = 60;
 
+
     this.reset();
 };
 
@@ -11,20 +12,23 @@ Game.prototype.start = function () {
         this.clear();
         this.draw();
         this.moveBack();
+        this.clearObstacle();
 
         this.counter++;
         if (this.counter % 50 === 0) {
-            this.newObstacle();
-            this.newCoin();
+            this.newObsCoin();
+
         }
-        this.coins.forEach(function(e) {
-            if (e.collision())
-            this.gameOver();
-        }.bind(this))
+
 
         this.obstacles.forEach(function (e) {
-            if (e.collision())
-                this.gameOver();
+            if (e.collision()) {
+                if (e.type == "obstacle") {
+                    this.gameOver();
+                } else {
+                    this.clearCoin();
+                }
+            }
         }.bind(this))
     }.bind(this), 1000 / this.fps);
 
@@ -34,8 +38,7 @@ Game.prototype.start = function () {
 Game.prototype.draw = function () {
     this.background.draw();
     this.player.draw();
-    this.obstacles.forEach(function (obstacle) { obstacle.draw(); });
-    this.coins.forEach(function (coin) { coin.draw(); });
+    this.obstacles.forEach(function (obst) { obst.draw(); });
 };
 
 
@@ -43,9 +46,7 @@ Game.prototype.moveBack = function () {
     this.background.move();
     this.player.key();
     this.player.gravity();
-    //this.obstacle.move();
-    this.coins.forEach(function (coin) { coin.move(); });;
-    this.obstacles.forEach(function (obstacle) { obstacle.move(); });
+    this.obstacles.forEach(function (obst) { obst.move(); });;
 };
 
 Game.prototype.clear = function () {
@@ -63,20 +64,26 @@ Game.prototype.gameOver = function () {
 Game.prototype.reset = function () {
     this.background = new Background(this);
     this.player = new Player(this);
-    //this.obstacle = new Obstacle(this);
-    this.coins = new Coins(this);
+    this.img = new Img();
     this.obstacles = [];
-    this.coins = [];
     this.counter = 0;
 };
-Game.prototype.newObstacle = function () {
-    this.obstacles.push(new Obstacle(this));
+Game.prototype.newObsCoin = function () {
+    this.obstacles.push(new Obstacle(this, "obstacle", this.img.obstacle));
+    this.obstacles.push(new Obstacle(this, "coin", this.img.coin));
 };
-Game.prototype.newCoin = function () {
-    this.coins.push(new Coins(this));
+
+Game.prototype.clearObstacle = function () {
+    this.obstacles = this.obstacles.filter(function (obstacle) {
+        return obstacle.x >= 0;
+    });
 };
-// Game.prototype.clearCoin = function (){
-//     this coins
-// };
+Game.prototype.clearCoin = function () {
+
+    this.obstacles = this.obstacles.filter(function (coins) {
+        return !coins.collision();
+
+    });
+};
 
 
