@@ -2,7 +2,7 @@ function Coins(game) {
     this.game = game;
     this.coin = true;
     this.x = 1650;
-    this.y = 500;
+    this.y = 600;
     this.h = 40;
     this.w = 40;
     this.img = new Image();

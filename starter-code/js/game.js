@@ -14,7 +14,7 @@ Game.prototype.start = function () {
         this.moveBack();
         this.clearObstacle();
 
-        this.counter++;
+        this.counter += Math.floor(Math.random() * (20 - 10));
         if (this.counter % 50 === 0) {
             this.newObsCoin();
 
@@ -27,6 +27,7 @@ Game.prototype.start = function () {
                     this.gameOver();
                 } else {
                     this.clearCoin();
+                    this.background.score += 10;
                 }
             }
         }.bind(this))
@@ -81,6 +82,7 @@ Game.prototype.clearObstacle = function () {
 Game.prototype.clearCoin = function () {
 
     this.obstacles = this.obstacles.filter(function (coins) {
+
         return !coins.collision();
 
     });

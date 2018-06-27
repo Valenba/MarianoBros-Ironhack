@@ -4,7 +4,7 @@ function Obstacle(game, type, img) {
     this.img = img;
     if (type == "coin") {
         this.x = 1650;
-        this.y = 300;
+        this.y = 600;
         this.h = 40;
         this.w = 40;
         this.dx = 5;
@@ -13,7 +13,7 @@ function Obstacle(game, type, img) {
         this.dy = 5;
     } else if (type == "obstacle") {
         this.x = 1500;
-        this.y = 622;
+        this.y = 710;
         this.w = 50;
         this.h = 50;
         this.dx = 5;

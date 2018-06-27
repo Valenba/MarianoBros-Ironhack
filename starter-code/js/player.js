@@ -1,7 +1,7 @@
 function Player(game) {
     this.game = game;
     this.x = 20;
-    this.y = 622;
+    this.y = 715;
     this.img = new Image();
     this.img.src = "../images/Super_Baby_Mario_24658.png";
     this.vy = 1;
@@ -18,18 +18,18 @@ Player.prototype.draw = function () {
 };
 Player.prototype.key = function () {
     document.onkeydown = function (e) {
-        if (e.keyCode === TOP && this.y == 622) {
-            this.y -= 100;
-            this.vy -= 10;
+        if (e.keyCode === TOP && this.y > 400) {
+            this.y -= 150;
+            this.vy -= 8;
         }
     }.bind(this);
 };
 
 Player.prototype.gravity = function () {
     var gravity = 0.5;
-    if (this.y >= 622) {
+    if (this.y >= 715) {
         this.vy = 1;
-        this.y = 622;
+        this.y = 715;
     } else {
         this.vy += gravity;
         this.y += this.vy;
