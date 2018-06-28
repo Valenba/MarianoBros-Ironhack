@@ -35,7 +35,7 @@ Game.prototype.start = function () {
         this.obstacles.forEach(function (e) {
             if (e.collisionEnemie()) {
                    this.clearEnemie();
-                   this.clearBullet();
+                   this.player.clearBullet();
                    this.background.score += 10;
             }
         }.bind(this))
@@ -106,14 +106,6 @@ Game.prototype.clearEnemie = function () {
     this.obstacles = this.obstacles.filter(function (enemie) {
 
         return !enemie.collisionEnemie();
-
-    });
-};
-Game.prototype.clearBullet = function () {
-
-    this.player.bullets = this.player.bullets.filter(function (bullet) {
-
-        return !obstacle.bullet.collisionEnemie();
 
     });
 };

@@ -4,11 +4,11 @@ function Bullet(game, x, y) {
     this.y = y;
     this.w = 50;
     this.h = 50;
-    this.bx =20;
-    this.by =700;
+    this.bx = 20;
+    this.by = 700;
     this.vx = 10;
     this.vy = 1;
-    this.grav = 0.9;
+    this.grav = 0.25;
     this.img = new Image();
     this.img.src = "../images/bullet.png";
 }
@@ -20,10 +20,11 @@ Bullet.prototype.draw = function () {
 
 Bullet.prototype.move = function () {
     this.x += this.vx;
-    this.y += this.grav;
+
+    this.vy += this.grav;
     this.y += this.vy;
 
-    if (this.by > this.game.player.y + this.game.player.h) {
+    if (this.y > (this.game.canvas.height - 200) + this.game.player.h) {
         this.vy *= -1;
     }
 };

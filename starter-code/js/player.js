@@ -16,29 +16,39 @@ function Player(game) {
 Player.prototype.draw = function () {
     this.game.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 
-    
+
     this.bullets.forEach(function (bullet) {
         bullet.draw();
         bullet.move();
     });
-    
-        this.bullets = this.bullets.filter(function (bullet) {
-            
-            return bullet.x < this.game.canvas.width;
-        }.bind(this));
-    };
+
+    this.bullets = this.bullets.filter(function (bullet) {
+
+        return bullet.x < this.game.canvas.width;
+    }.bind(this));
+};
+
+Player.prototype.clearBullet = function () {
+
+    this.bullets = this.bullets.filter(function (bullet) {
+
+        return !bullet.collisionEnemie();
+
+    });
+};
+
 
 
 Player.prototype.key = function () {
     document.onkeydown = function (e) {
-        if (e.keyCode === TOP && this.y > 400 && this.counter <=1) {
+        if (e.keyCode === TOP && this.y > 400 && this.counter <= 1) {
             this.y -= 150;
             this.vy -= 8;
-            this.counter ++;
-        
-        } 
+            this.counter++;
+
+        }
     }.bind(this);
-    document.onkeyup = function (e){       
+    document.onkeyup = function (e) {
         if (e.keyCode === SPACE) {
             this.shoot();
         }
@@ -59,7 +69,7 @@ Player.prototype.gravity = function () {
 
 };
 Player.prototype.shoot = function () {
-    this.bullet = new Bullet(this.game, this.x + this.w, this.y + this.h / 2);
+    this.bullet = new Bullet(this.game, this.x + this.w, this.y + this.h - 50);
 
     this.bullets.push(this.bullet);
 };
