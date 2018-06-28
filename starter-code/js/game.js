@@ -1,6 +1,6 @@
 function Game() {
-    this.canvas = document.getElementById("canvas");
-    this.ctx = this.canvas.getContext("2d");
+this.canvas = document.getElementById("canvas");
+this.ctx = this.canvas.getContext("2d");
     this.fps = 60;
 
 
@@ -23,12 +23,20 @@ Game.prototype.start = function () {
 
         this.obstacles.forEach(function (e) {
             if (e.collision()) {
-                if (e.type == "obstacle") {
+                if (e.type == "obstacle" || e.type == "enemie") {
                     this.gameOver();
                 } else {
                     this.clearCoin();
                     this.background.score += 10;
                 }
+            }
+        }.bind(this))
+
+        this.obstacles.forEach(function (e) {
+            if (e.collisionEnemie()) {
+                   this.clearEnemie();
+                   this.clearBullet();
+                   this.background.score += 10;
             }
         }.bind(this))
     }.bind(this), 1000 / this.fps);
@@ -70,8 +78,14 @@ Game.prototype.reset = function () {
     this.counter = 0;
 };
 Game.prototype.newObsCoin = function () {
-    this.obstacles.push(new Obstacle(this, "obstacle", this.img.obstacle));
-    this.obstacles.push(new Obstacle(this, "coin", this.img.coin));
+    var random = Math.floor(Math.random() * (20 - 5));
+    if (random < 10 && random > 6) {
+        this.obstacles.push(new Obstacle(this, "obstacle", this.img.obstacle));
+    } else if (random < 6 && random > 3) {
+        this.obstacles.push(new Obstacle(this, "coin", this.img.coin));
+    } else if (random < 3 && random > 0) {
+        this.obstacles.push(new Obstacle(this, "enemie", this.img.enemies));
+    }
 };
 
 Game.prototype.clearObstacle = function () {
@@ -87,5 +101,22 @@ Game.prototype.clearCoin = function () {
 
     });
 };
+Game.prototype.clearEnemie = function () {
+
+    this.obstacles = this.obstacles.filter(function (enemie) {
+
+        return !enemie.collisionEnemie();
+
+    });
+};
+Game.prototype.clearBullet = function () {
+
+    this.player.bullets = this.player.bullets.filter(function (bullet) {
+
+        return !obstacle.bullet.collisionEnemie();
+
+    });
+};
+
 
 
