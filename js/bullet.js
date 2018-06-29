@@ -10,7 +10,7 @@ function Bullet(game, x, y) {
     this.vy = 1;
     this.grav = 0.25;
     this.img = new Image();
-    this.img.src = "images/bullet.png";
+    this.img.src = "images/gaviota.png";
 }
 
 Bullet.prototype.draw = function () {

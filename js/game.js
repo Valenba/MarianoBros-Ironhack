@@ -2,7 +2,9 @@ function Game() {
 this.canvas = document.getElementById("canvas");
 this.ctx = this.canvas.getContext("2d");
     this.fps = 60;
-
+    this.audio = new Audio("sounds/Mariano Rajoy contigo estoy.mp3")
+    this.audio.play();
+    this.audio.loop = true;
 
     this.reset();
 };
@@ -65,7 +67,7 @@ Game.prototype.clear = function () {
 Game.prototype.gameOver = function () {
 
     clearInterval(this.interval)
-    if (window.confirm("GAME OVER. Play again?")) {
+    if (window.confirm("MOCIÓN DE CENSURA. ¿Otra legislatura?")) {
         this.reset();
         this.start();
     }
@@ -76,6 +78,7 @@ Game.prototype.reset = function () {
     this.img = new Img();
     this.obstacles = [];
     this.counter = 0;
+    
 };
 Game.prototype.newObsCoin = function () {
     var random = Math.floor(Math.random() * (20 - 5));

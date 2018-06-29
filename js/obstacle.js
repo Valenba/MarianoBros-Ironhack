@@ -13,9 +13,9 @@ function Obstacle(game, type, img) {
         this.dy = 5;
     } else if (type == "obstacle") {
         this.x = 1500;
-        this.y = 710;
-        this.w = 50;
-        this.h = 50;
+        this.y = 610;
+        this.w = 150;
+        this.h = 150;
         this.dx = 5;
 
     } else if (type == "enemie") {
@@ -52,7 +52,7 @@ Obstacle.prototype.collision = function () {
     return this.game.player.x < this.x + this.w &&
         this.game.player.x + this.game.player.w > this.x &&
         this.game.player.y < this.y + this.h &&
-        this.game.player.h + this.game.player.y > this.y;
+        this.game.player.h + this.game.player.y - 35 > this.y;
 };
 Obstacle.prototype.collisionEnemie = function () {
     return this.game.player.bullets.some(function (e) {

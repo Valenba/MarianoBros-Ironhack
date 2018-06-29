@@ -20,10 +20,6 @@ function Player(game) {
 Player.prototype.draw = function () {
     this.game.ctx.drawImage(
         this.img,
-        this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
-        0,
-        Math.floor(this.img.width / this.img.frames),
-        this.img.height,
         this.x,
         this.y,
         this.w,
@@ -42,15 +38,20 @@ Player.prototype.draw = function () {
     }.bind(this));
 };
 
-Player.prototype.animateImg = function() {
-    if (this.game.counter % 6 === 0) {
-      this.img.frameIndex += 1;
-  
-      if (this.img.frameIndex > 2) this.img.frameIndex = 0;
+Player.prototype.animateImg = function () {
+    if (this.img.frameIndex < 10) {
+        this.img.src = "images/mario.png"
     }
-  };
+    else {
+        this.img.src = "images/mariano.png";
+    }
+    if (this.img.frameIndex > 20){
+        this.img.frameIndex = 0;
+    }
+    this.img.frameIndex++;
+};
 
-  
+
 
 Player.prototype.clearBullet = function (e) {
 
