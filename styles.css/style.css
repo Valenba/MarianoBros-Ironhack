@@ -21,4 +21,8 @@
                 height: 800px;
                 width: 1400px;
               }
-              
+              h1{
+                  font-family: fantasy;
+                  display:flex;
+                  justify-content: center;
+              }
